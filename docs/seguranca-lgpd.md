@@ -6,6 +6,15 @@ Este projeto trata dados pessoais mínimos para atendimento pelo WhatsApp. A aut
 
 Todos os webhooks públicos devem usar HTTPS válido. Não use endpoints HTTP em produção.
 
+## Validação de origem
+
+Eventos recebidos da Meta devem validar:
+
+- token de verificação no desafio inicial do webhook;
+- assinatura `x-hub-signature-256` nos eventos `POST`, usando `META_APP_SECRET`, sempre que a infraestrutura permitir acesso ao corpo bruto.
+
+Se o n8n não permitir essa validação diretamente, use um gateway HTTPS antes do workflow.
+
 ## Credenciais
 
 - Use o gerenciador de credenciais do n8n.

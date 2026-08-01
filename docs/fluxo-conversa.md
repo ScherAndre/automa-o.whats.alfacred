@@ -14,6 +14,7 @@ Não foi gerado `n8n/workflow-development.json` porque um JSON importável depen
 - Gerar o menu a partir de serviços ativos.
 - Incluir sempre uma opção separada para `Falar com uma atendente`.
 - Pausar a automação quando houver atendimento humano.
+- Validar a assinatura `x-hub-signature-256` dos eventos sempre que a infraestrutura permitir acesso ao corpo bruto da requisição.
 
 ## Estados
 
@@ -83,6 +84,15 @@ O número pode ser configurado no n8n, desde que não entre em conflito com os s
 - Saída:
   - verdadeiro: responder com `hub.challenge`.
   - falso: responder `403`.
+
+### 2A. Code ou gateway: Validar assinatura do POST
+
+- Entrada: corpo bruto da requisição e header `x-hub-signature-256`.
+- Condição: HMAC SHA-256 calculado com `META_APP_SECRET` confere com o header recebido.
+- Saída:
+  - verdadeiro: seguir para normalização.
+  - falso: responder `403` e não registrar nem responder a mensagem.
+- Observação: se o n8n não disponibilizar o corpo bruto com confiabilidade, validar a assinatura em um gateway HTTPS antes de encaminhar o evento ao n8n.
 
 ### 3. Code: Normalizar payload
 
@@ -250,6 +260,10 @@ Se `option_number` puder conter letras no futuro, remova o cast para inteiro.
   - Listar cada serviço ativo como `{option_number} - {name}`.
   - Adicionar opção separada para `Falar com uma atendente`.
   - Não exibir serviços inativos.
+- Opcional recomendado:
+  - usar botões interativos quando houver até três opções;
+  - usar lista interativa quando houver mais opções;
+  - manter texto numerado como fallback.
 
 ### 16. HTTP Request: Enviar mensagem pela Meta
 
@@ -275,6 +289,35 @@ https://graph.facebook.com/vXX.X/{{WHATSAPP_PHONE_NUMBER_ID}}/messages
 ```
 
 - Saída: resposta da Meta com ID da mensagem enviada, quando disponível.
+
+Para mensagem interativa de botões, o body conceitual é:
+
+```json
+{
+  "messaging_product": "whatsapp",
+  "to": "{{whatsapp_number}}",
+  "type": "interactive",
+  "interactive": {
+    "type": "button",
+    "body": {
+      "text": "{{message_body}}"
+    },
+    "action": {
+      "buttons": [
+        {
+          "type": "reply",
+          "reply": {
+            "id": "{{option_id}}",
+            "title": "{{option_title}}"
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+Antes de enviar a resposta principal, pode ser feito um envio opcional para marcar a mensagem recebida como lida e exibir indicador de digitação. Falha nessa etapa não deve interromper o fluxo.
 
 ### 17. PostgreSQL: Registrar mensagem enviada
 
@@ -519,3 +562,5 @@ Quando a Meta enviar status:
 - `failed`: falhou.
 
 Atualize `message_logs.delivery_status` usando o ID da mensagem enviada.
+
+Status de entrega não devem iniciar campanhas, ofertas ou follow-ups promocionais nesta primeira versão. Use-os apenas para auditoria operacional e diagnóstico de falha.

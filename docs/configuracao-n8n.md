@@ -33,18 +33,43 @@ Nós conceituais:
 
 1. Webhook de entrada.
 2. Validação do token de verificação.
-3. Normalização do payload.
-4. Deduplicação pelo ID da mensagem.
-5. Upsert de contato.
-6. Upsert de conversa.
-7. Verificação de `automation_paused`.
-8. Switch por `current_state`.
-9. Consulta de serviços ativos.
-10. Montagem de mensagens.
-11. Envio pela Cloud API da Meta.
-12. Atualização do banco.
-13. Registro de logs.
-14. Tratamento de erros.
+3. Validação da assinatura `x-hub-signature-256`, quando houver acesso ao corpo bruto.
+4. Normalização do payload.
+5. Deduplicação pelo ID da mensagem.
+6. Upsert de contato.
+7. Upsert de conversa.
+8. Verificação de `automation_paused`.
+9. Switch por `current_state`.
+10. Consulta de serviços ativos.
+11. Montagem de mensagens.
+12. Envio pela Cloud API da Meta.
+13. Atualização do banco.
+14. Registro de logs.
+15. Tratamento de erros.
+
+## Assinatura dos eventos
+
+O ideal é validar o header `x-hub-signature-256` antes de processar qualquer mensagem recebida. Essa validação exige o corpo bruto da requisição e o `META_APP_SECRET`.
+
+Se o n8n instalado não expuser o corpo bruto de forma adequada, use um endpoint intermediário simples para:
+
+1. receber a requisição da Meta;
+2. validar a assinatura;
+3. rejeitar eventos inválidos;
+4. encaminhar ao webhook do n8n apenas eventos confiáveis.
+
+## Mensagens interativas
+
+O menu pode ser montado como texto numerado ou como mensagem interativa oficial.
+
+Use botões para confirmações curtas:
+
+- receber formulário;
+- voltar ao menu;
+- falar com atendente;
+- encerrar atendimento.
+
+Use lista interativa quando houver muitos serviços ativos. O texto numerado deve continuar documentado como fallback para compatibilidade e testes.
 
 ## Atendimento humano
 

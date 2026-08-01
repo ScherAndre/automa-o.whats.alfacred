@@ -60,6 +60,7 @@ alfacred-whatsapp-automation/
     fluxo-conversa.md
     perguntas-para-o-cliente.md
     plano-de-testes.md
+    referencia-jaspers-market.md
     requisitos.md
     seguranca-lgpd.md
   n8n/
@@ -117,6 +118,7 @@ O fluxo importável `n8n/workflow-development.json` não foi criado nesta versã
 A especificação detalhada, nó por nó, está em `docs/fluxo-conversa.md`. Use esse documento para montar o workflow no n8n com:
 
 - Webhook ou WhatsApp Trigger.
+- Validação do token de verificação e, quando possível, da assinatura `x-hub-signature-256`.
 - Nós PostgreSQL.
 - Nós HTTP Request para a Cloud API da Meta.
 - Switch baseado em `current_state`.

@@ -37,6 +37,19 @@ Durante a validação, a Meta envia uma requisição `GET` contendo desafio. O e
 
 Para mensagens reais, a Meta envia requisições `POST` com estrutura contendo `entry`, `changes`, `value`, `messages` e, quando disponível, `statuses`.
 
+## Assinatura do webhook
+
+Além do token de verificação usado no `GET`, o recebimento de eventos `POST` deve validar o header `x-hub-signature-256` com o `META_APP_SECRET`.
+
+A validação esperada é:
+
+1. Ler o corpo bruto da requisição.
+2. Calcular HMAC SHA-256 usando `META_APP_SECRET`.
+3. Comparar o hash calculado com o valor recebido em `x-hub-signature-256`.
+4. Rejeitar a requisição se a assinatura não conferir.
+
+Se a versão ou configuração do n8n não permitir acesso confiável ao corpo bruto, use um pequeno gateway HTTPS antes do n8n para validar a assinatura e encaminhar apenas eventos válidos.
+
 ## Envio de mensagens
 
 O envio deve ser feito pela Cloud API oficial:
@@ -55,6 +68,17 @@ Content-Type: application/json
 ```
 
 O token real nunca deve aparecer em código, documentação, logs ou exports do workflow.
+
+## Mensagens interativas
+
+Menus e confirmações podem usar mensagens interativas oficiais da Cloud API.
+
+Recomendação para a primeira versão:
+
+- Use botões quando houver até três escolhas simples.
+- Use lista interativa quando houver mais serviços ativos.
+- Mantenha texto numerado como fallback.
+- Não use templates de marketing, ofertas ou carrosséis promocionais nesta etapa.
 
 ## Janela de conversa
 

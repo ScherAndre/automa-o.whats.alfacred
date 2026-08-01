@@ -10,24 +10,26 @@ O projeto deve usar somente a WhatsApp Business Platform Cloud API oficial da Me
 
 1. Receber mensagens pelo webhook oficial da Meta ou por nó compatível do n8n.
 2. Validar e normalizar o payload recebido.
-3. Identificar o cliente pelo número do WhatsApp.
-4. Criar ou atualizar registro em `contacts`.
-5. Criar ou atualizar registro em `conversations`.
-6. Registrar a última interação em `last_message_at`.
-7. Registrar mensagens em `message_logs`.
-8. Ignorar mensagens duplicadas usando `whatsapp_message_id`.
-9. Enviar mensagem de boas-vindas para uma nova conversa.
-10. Exibir menu gerado a partir de serviços ativos.
-11. Incluir opção separada para falar com uma atendente.
-12. Salvar o serviço escolhido em `selected_service_id`.
-13. Confirmar a escolha antes do envio do formulário.
-14. Enviar o `form_url` do serviço escolhido.
-15. Perguntar se o cliente deseja falar com uma atendente após o formulário.
-16. Registrar solicitação de atendimento humano.
-17. Pausar a automação durante atendimento humano.
-18. Permitir comando `menu` quando `automation_paused = false`.
-19. Tratar opções inválidas sem trocar indevidamente de estado.
-20. Registrar status de envio, entrega, leitura ou falha quando a Meta disponibilizar.
+3. Validar a assinatura `x-hub-signature-256` quando a infraestrutura permitir acesso ao corpo bruto.
+4. Identificar o cliente pelo número do WhatsApp.
+5. Criar ou atualizar registro em `contacts`.
+6. Criar ou atualizar registro em `conversations`.
+7. Registrar a última interação em `last_message_at`.
+8. Registrar mensagens em `message_logs`.
+9. Ignorar mensagens duplicadas usando `whatsapp_message_id`.
+10. Enviar mensagem de boas-vindas para uma nova conversa.
+11. Exibir menu gerado a partir de serviços ativos.
+12. Incluir opção separada para falar com uma atendente.
+13. Salvar o serviço escolhido em `selected_service_id`.
+14. Confirmar a escolha antes do envio do formulário.
+15. Enviar o `form_url` do serviço escolhido.
+16. Perguntar se o cliente deseja falar com uma atendente após o formulário.
+17. Registrar solicitação de atendimento humano.
+18. Pausar a automação durante atendimento humano.
+19. Permitir comando `menu` quando `automation_paused = false`.
+20. Tratar opções inválidas sem trocar indevidamente de estado.
+21. Registrar status de envio, entrega, leitura ou falha quando a Meta disponibilizar.
+22. Usar mensagens interativas oficiais quando isso melhorar a experiência e houver compatibilidade no n8n.
 
 ## Requisitos não funcionais
 
@@ -39,6 +41,7 @@ O projeto deve usar somente a WhatsApp Business Platform Cloud API oficial da Me
 - A automação não deve armazenar CPF, dados bancários, documentos ou fotos.
 - A automação não deve iniciar conversas, campanhas ou disparos em massa.
 - O menu deve ser configurável sem alterar a lógica central do workflow.
+- Status de entrega não devem iniciar campanhas, ofertas ou follow-ups promocionais.
 
 ## Estados obrigatórios
 

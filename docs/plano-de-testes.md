@@ -5,6 +5,7 @@ Execute os testes primeiro com o número de teste da Meta e depois em ambiente c
 | Caso | Pré-condição | Passos | Resultado esperado |
 | --- | --- | --- | --- |
 | Primeira mensagem | Contato não existe | Enviar "Olá" ao WhatsApp | Cria contato, cria conversa em `INICIO`, envia boas-vindas, privacidade e menu, muda para `AGUARDANDO_SERVICO`. |
+| Assinatura inválida | Webhook configurado | Enviar `POST` sem assinatura válida | Rejeita com `403`, não cria contato, não registra mensagem e não responde ao cliente. |
 | Cliente já cadastrado | Contato e conversa existem | Enviar nova mensagem | Atualiza `last_message_at` e segue o estado atual. |
 | Escolha válida | Estado `AGUARDANDO_SERVICO` | Enviar número de serviço ativo | Salva `selected_service_id`, confirma serviço e muda para `AGUARDANDO_CONFIRMACAO_FORMULARIO`. |
 | Escolha inválida | Estado `AGUARDANDO_SERVICO` | Enviar número inexistente | Envia opção inválida e mantém estado. |
