@@ -1,0 +1,47 @@
+# Variáveis de ambiente e segredos
+.env
+.env.*
+!.env.example
+*.secret
+*.secrets
+*token*
+*tokens*
+*credential*
+*credentials*
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Backups e exports sensíveis
+backup/
+backups/
+*.bak
+*.backup
+*.dump
+*.sql.gz
+*.tar.gz
+*.zip
+
+# Logs e dados pessoais
+logs/
+*.log
+*.log.*
+message-logs/
+personal-data/
+dados-pessoais/
+
+# Arquivos temporários
+tmp/
+temp/
+*.tmp
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Dependências e artefatos locais, se forem criados no futuro
+node_modules/
+dist/
+build/
+.n8n/

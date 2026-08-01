@@ -1,0 +1,19 @@
+{
+  "welcome": "Olá! Seja bem-vindo(a) ao atendimento da Alfacred.",
+  "request_name": "Para começarmos, informe seu nome, por favor.",
+  "main_menu": "Como podemos ajudar hoje?\n\n{{menu_options}}\n\n{{human_option}}\n\nDigite o número da opção desejada ou envie \"menu\" para voltar a este menu.",
+  "service_confirmation": "Você escolheu: {{service_name}}.\n\n{{service_description}}\n\nResponda 1 para receber o formulário ou 2 para voltar ao menu.",
+  "form_delivery": "Segue o formulário para {{service_name}}:\n{{form_url}}\n\nDepois de preencher, responda 1 se quiser falar com uma atendente ou 2 para encerrar.",
+  "human_request": "Certo. Vamos encaminhar sua solicitação para uma atendente. Aguarde nosso retorno por este WhatsApp.",
+  "out_of_hours": "Recebemos sua mensagem fora do horário de atendimento. Assim que possível, uma atendente dará continuidade.",
+  "invalid_option": "Não consegui identificar essa opção. Por favor, escolha uma opção válida do menu.",
+  "return_to_menu": "Tudo bem. Voltamos ao menu principal.",
+  "waiting_attendant": "Sua solicitação já foi encaminhada. Aguarde o retorno de uma atendente.",
+  "closing": "Atendimento encerrado. Quando precisar, envie uma nova mensagem ou digite \"menu\" para começar novamente.",
+  "privacy_notice": "Aviso de privacidade: não envie CPF, dados bancários, documentos ou fotos por este atendimento automático. Use apenas os formulários oficiais indicados pela Alfacred.",
+  "human_option_label": "Falar com uma atendente",
+  "confirm_form_option": "Receber formulário",
+  "back_to_menu_option": "Voltar ao menu",
+  "yes_human_option": "Falar com uma atendente",
+  "finish_option": "Encerrar atendimento"
+}

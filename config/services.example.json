@@ -1,0 +1,22 @@
+[
+  {
+    "id": "servico_1",
+    "option": "1",
+    "name": "Serviço de exemplo",
+    "description": "Descrição curta do serviço.",
+    "form_url": "https://example.com/formulario",
+    "requires_human_before_form": false,
+    "requires_human_after_form": false,
+    "active": true
+  },
+  {
+    "id": "servico_2",
+    "option": "2",
+    "name": "Outro serviço de exemplo",
+    "description": "Descrição curta de outro serviço configurável.",
+    "form_url": "https://example.com/outro-formulario",
+    "requires_human_before_form": false,
+    "requires_human_after_form": false,
+    "active": true
+  }
+]
