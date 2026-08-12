@@ -60,9 +60,14 @@ alfacred-whatsapp-automation/
     fluxo-conversa.md
     perguntas-para-o-cliente.md
     plano-de-testes.md
+    publicacao-github-pages.md
     referencia-jaspers-market.md
     requisitos.md
     seguranca-lgpd.md
+    exclusao-de-dados.html
+    index.html
+    politica-de-privacidade.html
+    termos-de-uso.html
   n8n/
     README.md
   .env.example

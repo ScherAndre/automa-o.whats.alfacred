@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alfacred - Documentos legais</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --blue: #053f7f;
+      --orange: #f47a00;
+      --text: #1f2933;
+      --muted: #52616b;
+      --line: #d9e2ec;
+      --bg: #f5f7fa;
+      --card: #ffffff;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+
+    main {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    header {
+      border-top: 8px solid var(--orange);
+      background: var(--card);
+      border-radius: 6px;
+      padding: 28px;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.08);
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--blue);
+      font-size: 2rem;
+    }
+
+    p {
+      margin: 12px 0 0;
+    }
+
+    nav {
+      display: grid;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    a {
+      color: var(--blue);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .item {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 18px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Alfacred</h1>
+      <p>Documentos legais para atendimento digital e WhatsApp.</p>
+    </header>
+
+    <nav aria-label="Documentos">
+      <div class="item">
+        <a href="politica-de-privacidade.html">Política de Privacidade</a>
+        <p class="muted">Informações sobre coleta, uso, armazenamento e proteção de dados pessoais.</p>
+      </div>
+      <div class="item">
+        <a href="exclusao-de-dados.html">Solicitação de Exclusão de Dados</a>
+        <p class="muted">Orientações para solicitar exclusão, correção ou acesso a dados pessoais.</p>
+      </div>
+      <div class="item">
+        <a href="termos-de-uso.html">Termos de Uso</a>
+        <p class="muted">Regras gerais para uso dos canais digitais e atendimento por WhatsApp.</p>
+      </div>
+    </nav>
+  </main>
+</body>
+</html>
