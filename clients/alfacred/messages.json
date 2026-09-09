@@ -16,7 +16,7 @@
   "simulation_received": "Perfeito. Sua simulacao foi recebida.\n\nEm breve a equipe Alfacred dara continuidade ao atendimento.",
   "account": "Conta corrente ou poupanca.\n\nEsse atendimento e presencial.\n\nPara abertura, sera necessario levar:\n\n- RG\n- CPF\n- Comprovante de endereco\n\nEndereco: Avenida Cinquentenario, 1220 Terreo - Centro, Itabuna - BA.\nHorario: 9h as 18h.",
   "credit_card": "Cartao de credito.\n\nEsse atendimento e realizado somente de forma presencial.\n\nEndereco: Avenida Cinquentenario, 1220 Terreo - Centro, Itabuna - BA.\nHorario: 9h as 18h.",
-  "human_handoff": "Certo. Vou encaminhar seu atendimento para uma atendente da Alfacred.\n\nNosso horario de atendimento e de 9h as 18h.",
+  "human_handoff": "Certo. Vou encaminhar seu atendimento para uma atendente da Alfacred.\n\nVoce tambem pode falar diretamente pelo WhatsApp:\n\nhttps://wa.me/5573988421632\n\nNosso horario de atendimento e de 9h as 18h.",
   "invalid_option": "Nao consegui identificar essa opcao. Por favor, escolha uma opcao valida do menu.",
   "out_of_hours": "Recebemos sua mensagem fora do horario de atendimento. Assim que possivel, uma atendente dara continuidade."
 }

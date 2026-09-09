@@ -262,7 +262,7 @@
                   {
                     "id": "21b7c268-9628-48ce-b344-53e96dbca6b4",
                     "leftValue": "={{ (\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.list_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.button_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].text?.body ||\n  \"\"\n).trim().toUpperCase().normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\") }}",
-                    "rightValue": "CONS_AUT",
+                    "rightValue": "CONS_AUTO",
                     "operator": {
                       "type": "string",
                       "operation": "equals",
@@ -802,7 +802,7 @@
       "typeVersion": 4.5,
       "position": [
         -1424,
-        -112
+        -96
       ],
       "id": "2268c8e0-898a-4497-a1af-036847cd733b",
       "name": "MSG Consorcio Auto"
@@ -1012,7 +1012,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"messaging_product\": \"whatsapp\",\n  \"recipient_type\": \"individual\",\n  \"to\": \"{{ $('Webhook').item.json.body.entry[0].changes[0].value.messages[0].from }}\",\n  \"type\": \"text\",\n  \"text\": {\n    \"preview_url\": false,\n    \"body\": \"Certo. Vou encaminhar seu atendimento para uma atendente da Alfacred.\\n\\nNosso horário de atendimento é de 9h às 18h.\"\n  }\n}",
+        "jsonBody": "={\n  \"messaging_product\": \"whatsapp\",\n  \"recipient_type\": \"individual\",\n  \"to\": \"{{ $('Webhook').item.json.body.entry[0].changes[0].value.messages[0].from }}\",\n  \"type\": \"text\",\n  \"text\": {\n    \"preview_url\": true,\n    \"body\": \"Certo. Vou encaminhar seu atendimento para uma atendente da Alfacred.\\n\\nVocê também pode falar diretamente pelo WhatsApp:\\n\\nhttps://wa.me/5573988421632\\n\\nNosso horário de atendimento é de 9h às 18h.\"\n  }\n}",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
@@ -1102,6 +1102,37 @@
       ],
       "id": "606aadeb-da56-4ac2-8ece-dbd2e5d2944a",
       "name": "MSG Consorcio"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v26.0/1301277186398122/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer WHATSAPP_ACCESS_TOKEN_PLACEHOLDER"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"messaging_product\": \"whatsapp\",\n  \"recipient_type\": \"individual\",\n  \"to\": \"5573988421632\",\n  \"type\": \"text\",\n  \"text\": {\n    \"preview_url\": false,\n    \"body\": \"Novo atendimento solicitado na automação da Alfacred.\\n\\nCliente: {{ $('Webhook').item.json.body.entry[0].changes[0].value.contacts[0].profile.name || 'Nome não informado' }}\\nWhatsApp: {{ $('Webhook').item.json.body.entry[0].changes[0].value.messages[0].from }}\\n\\nO cliente pediu para falar com uma atendente.\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -2272,
+        1104
+      ],
+      "id": "aaf8377f-2b68-40bf-a2c8-0dc4c1eba4e1",
+      "name": "MSG Avisar Atendente"
     }
   ],
   "pinData": {
@@ -1330,7 +1361,7 @@
         ],
         [
           {
-            "node": "MSG Atendente",
+            "node": "MSG Avisar Atendente",
             "type": "main",
             "index": 0
           }
@@ -1552,15 +1583,26 @@
           }
         ]
       ]
+    },
+    "MSG Avisar Atendente": {
+      "main": [
+        [
+          {
+            "node": "MSG Atendente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "31ce8167-4afc-41bd-967b-9cb32e888623",
+  "versionId": "98a07229-367b-4440-9472-2671d4b03be5",
   "meta": {
     "instanceId": "b16c89a3579214da047a5b762d4d6d1cf1b5044447cd2ed5f2270bab72caa16c"
   },
