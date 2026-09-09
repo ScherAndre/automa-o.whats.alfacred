@@ -1,0 +1,18 @@
+{
+  "forms": [
+    {
+      "id": "cbnegocial_default",
+      "name": "Formulario CB Negocial",
+      "url": "https://www.sistemacbnegocial.com.br/formulario_cadastro_cliente_custom?i=S0NISEM2MlVMUV84NDE=",
+      "applies_to": [
+        "HAB_USADO",
+        "HAB_NOVO",
+        "CONS_AUTO",
+        "CONS_IMOB",
+        "CONS_SERVIDOR",
+        "CONST_AQUISICAO",
+        "CONST_PROPRIO"
+      ]
+    }
+  ]
+}

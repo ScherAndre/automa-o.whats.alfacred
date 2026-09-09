@@ -1,0 +1,41 @@
+{
+  "client_id": "alfacred",
+  "client_name": "Alfacred",
+  "segment": "financial",
+  "environment": "production",
+  "timezone": "America/Bahia",
+  "business_hours_label": "9h as 18h",
+  "whatsapp": {
+    "provider": "meta_cloud_api",
+    "display_number": "+55 (73) 3026-2766",
+    "phone_number_id_env": "WHATSAPP_PHONE_NUMBER_ID",
+    "business_account_id_env": "WHATSAPP_BUSINESS_ACCOUNT_ID",
+    "access_token_env": "WHATSAPP_ACCESS_TOKEN",
+    "verify_token_env": "WHATSAPP_VERIFY_TOKEN",
+    "webhook_path": "meta-whatsapp"
+  },
+  "n8n": {
+    "workflow_name": "WhatsApp Alfacred - Webhook Meta",
+    "public_webhook_url_env": "PUBLIC_WEBHOOK_URL"
+  },
+  "human_handoff": {
+    "enabled": true,
+    "attendant_number": "5573988421632",
+    "customer_direct_link": "https://wa.me/5573988421632",
+    "notify_attendant": true,
+    "notify_with_whatsapp": true
+  },
+  "forms": {
+    "default_form_id": "cbnegocial_default"
+  },
+  "routing": {
+    "main_menu_command_ids": ["MENU", "INICIO", "1"],
+    "human_handoff_command_ids": ["ATENDENTE", "9"],
+    "fallback_action": "main_menu"
+  },
+  "security": {
+    "store_tokens_in_repository": false,
+    "store_tokens_in_n8n_credentials": true,
+    "log_sensitive_payloads": false
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "welcome": "Ola! Seja bem-vindo(a) ao atendimento da Empresa Demonstracao.",
+  "main_menu": {
+    "header": "Empresa Demonstracao",
+    "body": "Ola! Seja bem-vindo(a) ao atendimento da Empresa Demonstracao.\n\nEscolha uma opcao para simular o fluxo:",
+    "footer": "Ambiente de demonstracao",
+    "button": "Ver opcoes"
+  },
+  "lead_questions": {
+    "service": "Qual servico voce deseja simular?",
+    "name": "Informe seu nome para a demonstracao.",
+    "phone": "Informe um telefone ficticio para contato.",
+    "summary": "Resumo do lead de demonstracao:\n\nServico: {{service_name}}\nNome: {{name}}\nTelefone: {{phone}}\n\nEncaminhamento simulado concluido."
+  },
+  "form_delivery": "Este e um formulario ficticio de demonstracao:\n\n{{form_url}}\n\nNenhuma informacao sera enviada para atendimento real.",
+  "human_handoff": "Encaminhamento humano simulado. Em um cliente real, este ponto avisaria a equipe responsavel.",
+  "invalid_option": "Opcao nao reconhecida no fluxo demo. Escolha uma opcao do menu.",
+  "out_of_hours": "Mensagem fora do horario simulado. Em producao, a equipe seria avisada conforme configuracao."
+}

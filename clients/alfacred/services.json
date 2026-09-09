@@ -1,0 +1,68 @@
+{
+  "menu_button": "Ver servicos",
+  "sections": [
+    {
+      "title": "Servicos",
+      "rows": [
+        {
+          "id": "HABITACAO",
+          "title": "Habitacao",
+          "description": "Imovel novo, usado ou simulacao",
+          "next": "HABITACAO_TIPO"
+        },
+        {
+          "id": "CONTA",
+          "title": "Conta corrente",
+          "description": "Conta corrente ou poupanca",
+          "next": "CONTA_INFO"
+        },
+        {
+          "id": "CONSORCIO",
+          "title": "Consorcio",
+          "description": "Automovel ou imobiliario",
+          "next": "CONSORCIO_TIPO"
+        },
+        {
+          "id": "CONSIGNADO",
+          "title": "Consignado",
+          "description": "Servidor publico",
+          "next": "CONSIGNADO_TIPO"
+        },
+        {
+          "id": "CARTAO",
+          "title": "Cartao de credito",
+          "description": "Atendimento presencial",
+          "next": "CARTAO_INFO"
+        },
+        {
+          "id": "CONSTRUCAO",
+          "title": "Construcao",
+          "description": "Terreno e construcao",
+          "next": "CONSTRUCAO_TIPO"
+        }
+      ]
+    }
+  ],
+  "submenus": {
+    "HABITACAO_TIPO": [
+      { "id": "HAB_USADO", "title": "Imovel usado", "form_id": "cbnegocial_default" },
+      { "id": "HAB_NOVO", "title": "Imovel novo", "form_id": "cbnegocial_default" },
+      { "id": "MENU", "title": "Menu inicial" }
+    ],
+    "CONSORCIO_TIPO": [
+      { "id": "CONS_AUTO", "title": "Automovel", "form_id": "cbnegocial_default" },
+      { "id": "CONS_IMOB", "title": "Imobiliario", "form_id": "cbnegocial_default" },
+      { "id": "MENU", "title": "Menu inicial" }
+    ],
+    "CONSIGNADO_TIPO": [
+      { "id": "CONS_SERVIDOR", "title": "Servidor publico", "form_id": "cbnegocial_default" },
+      { "id": "ATENDENTE", "title": "Atendente" },
+      { "id": "MENU", "title": "Menu inicial" }
+    ],
+    "CONSTRUCAO_TIPO": [
+      { "id": "CONST_AQUISICAO", "title": "Aquisicao", "form_id": "cbnegocial_default" },
+      { "id": "CONST_PROPRIO", "title": "Terreno proprio", "form_id": "cbnegocial_default" },
+      { "id": "MENU", "title": "Menu inicial" }
+    ]
+  }
+}

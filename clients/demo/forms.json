@@ -1,0 +1,14 @@
+{
+  "forms": [
+    {
+      "id": "demo_default",
+      "name": "Formulario de demonstracao",
+      "url": "https://example.com/formulario-demo",
+      "applies_to": [
+        "DEMO_CREDITO",
+        "DEMO_IMOVEL",
+        "DEMO_CLINICA"
+      ]
+    }
+  ]
+}
