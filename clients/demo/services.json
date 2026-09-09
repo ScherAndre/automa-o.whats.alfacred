@@ -1,0 +1,34 @@
+{
+  "menu_button": "Ver opcoes",
+  "sections": [
+    {
+      "title": "Demonstracao",
+      "rows": [
+        {
+          "id": "DEMO_CREDITO",
+          "title": "Credito",
+          "description": "Simular atendimento financeiro",
+          "next": "DEMO_LEAD"
+        },
+        {
+          "id": "DEMO_IMOVEL",
+          "title": "Imovel",
+          "description": "Simular captacao imobiliaria",
+          "next": "DEMO_LEAD"
+        },
+        {
+          "id": "DEMO_CLINICA",
+          "title": "Clinica",
+          "description": "Simular agendamento",
+          "next": "DEMO_LEAD"
+        },
+        {
+          "id": "ATENDENTE",
+          "title": "Atendente",
+          "description": "Encaminhamento simulado",
+          "next": "DEMO_HUMAN_HANDOFF"
+        }
+      ]
+    }
+  ]
+}

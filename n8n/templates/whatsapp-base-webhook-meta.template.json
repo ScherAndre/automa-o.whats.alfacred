@@ -1,0 +1,1570 @@
+{
+  "name": "WhatsApp Base - Webhook Meta Template",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        992,
+        -976
+      ],
+      "id": "a33116dd-7328-4b71-b174-6437b6442159",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "multipleMethods": true,
+        "path": "meta-whatsapp",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -3824,
+        1440
+      ],
+      "id": "51ff775b-5ccf-41cc-8f17-0b8c23c3aa09",
+      "name": "Webhook",
+      "webhookId": "d95506a9-b76c-4d89-9068-0c741762a212"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "9b874fe3-cbda-4e5c-bc77-0ad9e25dc0a3",
+              "leftValue": "={{ $json.query[\"hub.verify_token\"] }}",
+              "rightValue": "WHATSAPP_VERIFY_TOKEN_PLACEHOLDER",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -3968,
+        1056
+      ],
+      "id": "89cefd7f-337e-4b24-a7bc-05768291c57f",
+      "name": "IF Verificar Token"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "1d459cfc-af42-4e97-8d94-f0a9344c1460",
+              "leftValue": "={{ $json.body.entry[0].changes[0].value.messages ? \"yes\" : \"no\" }}",
+              "rightValue": "yes",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -3552,
+        960
+      ],
+      "id": "ca25646e-fdf5-4352-9dad-5115f1735267",
+      "name": "IF Tem Mensagem"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ (   $('Webhook').item.json.body.entry[0].changes[0].value.messages[0].interactive?.list_reply?.id ||   $('Webhook').item.json.body.entry[0].changes[0].value.messages[0].interactive?.button_reply?.id ||   $('Webhook').item.json.body.entry[0].changes[0].value.messages[0].text?.body ||   \"\" ).trim().toUpperCase().normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\") }}",
+                    "rightValue": "HABITACAO",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "ca984827-9615-41dc-87a1-915762a5ebf8"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "HABITACAO"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "4edad1f2-8fc4-4d09-8c8b-9c1ffe85fabc",
+                    "leftValue": "={{ (\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.list_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.button_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].text?.body ||\n  \"\"\n).trim().toUpperCase().normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\") }}",
+                    "rightValue": "HAB_USADO",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "HAB_USADO"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "e36b143e-c18a-4ce2-a573-f81dc6fe5f2d",
+                    "leftValue": "={{ (\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.list_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.button_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].text?.body ||\n  \"\"\n).trim().toUpperCase().normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\") }}",
+                    "rightValue": "HAB_NOVO",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "HAB_NOVO"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "ca3ad101-33d1-4b64-a23c-0751151a6e83",
+                    "leftValue": "={{ (\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.list_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.button_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].text?.body ||\n  \"\"\n).trim().toUpperCase().normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\") }}",
+                    "rightValue": "HAB_RECEBI",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "HAB_RECEBI"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "017e1da1-3ef1-4e41-a093-1c002dba2338",
+                    "leftValue": "={{ (\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.list_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.button_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].text?.body ||\n  \"\"\n).trim().toUpperCase().normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\") }}",
+                    "rightValue": "CONTA",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "CONTA"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "4c51919c-a055-488a-85c4-0ff6b6b1cf42",
+                    "leftValue": "={{ (\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.list_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.button_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].text?.body ||\n  \"\"\n).trim().toUpperCase().normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\") }}",
+                    "rightValue": "CONSORCIO",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "CONSORCIO"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "21b7c268-9628-48ce-b344-53e96dbca6b4",
+                    "leftValue": "={{ (\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.list_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.button_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].text?.body ||\n  \"\"\n).trim().toUpperCase().normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\") }}",
+                    "rightValue": "CONS_AUTO",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "CONS_AUTO"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "99dd6ee7-caf5-40a0-8e7a-63e605775402",
+                    "leftValue": "={{ (\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.list_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.button_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].text?.body ||\n  \"\"\n).trim().toUpperCase().normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\") }}",
+                    "rightValue": "CONS_IMOB",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "CONS_IMOB"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "4ffcae8e-553e-4a45-b142-7360e6daa0e8",
+                    "leftValue": "={{ (\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.list_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.button_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].text?.body ||\n  \"\"\n).trim().toUpperCase().normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\") }}",
+                    "rightValue": "CONSIGNADO",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "CONSIGNADO"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "dbdeb67f-a68f-45ff-afd5-d60e774a7d70",
+                    "leftValue": "={{ (\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.list_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.button_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].text?.body ||\n  \"\"\n).trim().toUpperCase().normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\") }}",
+                    "rightValue": "CONS_SERVIDOR",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "CONS_SERVIDOR"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "10f3adea-68a4-4adf-8820-a69b6e0d58b1",
+                    "leftValue": "={{ (\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.list_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.button_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].text?.body ||\n  \"\"\n).trim().toUpperCase().normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\") }}",
+                    "rightValue": "CARTAO",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "CARTAO"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "fcc6de60-c774-4384-8cb0-9d44384b64cc",
+                    "leftValue": "={{ (\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.list_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.button_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].text?.body ||\n  \"\"\n).trim().toUpperCase().normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\") }}",
+                    "rightValue": "CONSTRUCAO",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "CONSTRUCAO"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "7e91620b-5765-49f0-80e4-98ed35f6d52e",
+                    "leftValue": "={{ (\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.list_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.button_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].text?.body ||\n  \"\"\n).trim().toUpperCase().normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\") }}",
+                    "rightValue": "CONST_AQUISICAO",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "CONST_AQUISICAO"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "43ae6ef9-fe8d-4482-90bf-d581069967ac",
+                    "leftValue": "={{ (\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.list_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.button_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].text?.body ||\n  \"\"\n).trim().toUpperCase().normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\") }}",
+                    "rightValue": "CONST_PROPRIO",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "CONST_PROPRIO"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "0a35255c-4b30-4767-8d17-e3cc2d547136",
+                    "leftValue": "={{ (\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.list_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.button_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].text?.body ||\n  \"\"\n).trim().toUpperCase().normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\") }}",
+                    "rightValue": "ATENDENTE",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "ATENDENTE"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "c1931aab-8ce5-472c-b42b-565f45dfe044",
+                    "leftValue": "={{ (\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.list_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.button_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].text?.body ||\n  \"\"\n).trim().toUpperCase().normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\") }}",
+                    "rightValue": "9",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "9"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "8b90b089-e1b8-45ad-86c5-02e77b7fb37f",
+                    "leftValue": "={{ (\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.list_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.button_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].text?.body ||\n  \"\"\n).trim().toUpperCase().normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\") }}",
+                    "rightValue": "1",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "1"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "a61dd6f9-dfc5-453a-b3e4-e2e989e19009",
+                    "leftValue": "={{ (\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.list_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.button_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].text?.body ||\n  \"\"\n).trim().toUpperCase().normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\") }}",
+                    "rightValue": "MENU",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "MENU"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "2e37d553-7d44-40ac-b1b4-aa8a78ba4887",
+                    "leftValue": "={{ (\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.list_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].interactive?.button_reply?.id ||\n  $json.body.entry[0].changes[0].value.messages[0].text?.body ||\n  \"\"\n).trim().toUpperCase().normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\") }}",
+                    "rightValue": "INICIO",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "INICIO"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        -2704,
+        -160
+      ],
+      "id": "26ab23b2-7d6c-455c-99a6-a337d24852cc",
+      "name": "SWITCH Escolha"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v26.0/{{WHATSAPP_PHONE_NUMBER_ID}}/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": " Authorization",
+              "value": "Bearer WHATSAPP_ACCESS_TOKEN_PLACEHOLDER"
+            },
+            {
+              "name": "Content-Type",
+              "value": " application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"messaging_product\": \"whatsapp\",\n  \"recipient_type\": \"individual\",\n  \"to\": \"{{ $('Webhook').item.json.body.entry[0].changes[0].value.messages[0].from }}\",\n  \"type\": \"interactive\",\n  \"interactive\": {\n    \"type\": \"list\",\n    \"header\": {\n      \"type\": \"text\",\n      \"text\": \"{{CLIENT_NAME}}\"\n    },\n    \"body\": {\n      \"text\": \"Olá! Seja bem-vindo(a) ao atendimento da {{CLIENT_NAME}}.\\n\\nEscolha o serviço que deseja:\"\n    },\n    \"footer\": {\n      \"text\": \"{{BUSINESS_HOURS_LABEL}}\"\n    },\n    \"action\": {\n      \"button\": \"Ver serviços\",\n      \"sections\": [\n        {\n          \"title\": \"Serviços\",\n          \"rows\": [\n            {\n              \"id\": \"HABITACAO\",\n              \"title\": \"Habitação\",\n              \"description\": \"Imóvel novo, usado ou simulação\"\n            },\n            {\n              \"id\": \"CONTA\",\n              \"title\": \"Conta corrente\",\n              \"description\": \"Conta corrente ou poupança\"\n            },\n            {\n              \"id\": \"CONSORCIO\",\n              \"title\": \"Consórcio\",\n              \"description\": \"Automóvel ou imobiliário\"\n            },\n            {\n              \"id\": \"CONSIGNADO\",\n              \"title\": \"Consignado\",\n              \"description\": \"Servidor público\"\n            },\n            {\n              \"id\": \"CARTAO\",\n              \"title\": \"Cartão de crédito\",\n              \"description\": \"Atendimento presencial\"\n            },\n            {\n              \"id\": \"CONSTRUCAO\",\n              \"title\": \"Construção\",\n              \"description\": \"Terreno e construção\"\n            }\n          ]\n        }\n      ]\n    }\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -1424,
+        1344
+      ],
+      "id": "6c7c3156-1a69-4755-89ea-a56292c65bac",
+      "name": "MSG Menu Principal"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v26.0/{{WHATSAPP_PHONE_NUMBER_ID}}/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": " Authorization",
+              "value": "Bearer WHATSAPP_ACCESS_TOKEN_PLACEHOLDER"
+            },
+            {
+              "name": "Content-Type",
+              "value": " application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"messaging_product\": \"whatsapp\",\n  \"recipient_type\": \"individual\",\n  \"to\": \"{{ $('Webhook').item.json.body.entry[0].changes[0].value.messages[0].from }}\",\n  \"type\": \"interactive\",\n  \"interactive\": {\n    \"type\": \"button\",\n    \"body\": {\n      \"text\": \"Você escolheu Habitação.\\n\\nSelecione o tipo de imóvel:\"\n    },\n    \"action\": {\n      \"buttons\": [\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"HAB_USADO\",\n            \"title\": \"Imóvel usado\"\n          }\n        },\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"HAB_NOVO\",\n            \"title\": \"Imóvel novo\"\n          }\n        },\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"MENU\",\n            \"title\": \"Menu inicial\"\n          }\n        }\n      ]\n    }\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -1424,
+        -1072
+      ],
+      "id": "d47ff75d-63ea-45fd-a119-25744e8bceb0",
+      "name": "MSG Habitacao"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v26.0/{{WHATSAPP_PHONE_NUMBER_ID}}/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": " Authorization",
+              "value": "Bearer WHATSAPP_ACCESS_TOKEN_PLACEHOLDER"
+            },
+            {
+              "name": "Content-Type",
+              "value": " application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"messaging_product\": \"whatsapp\",\n  \"recipient_type\": \"individual\",\n  \"to\": \"{{ $('Webhook').item.json.body.entry[0].changes[0].value.messages[0].from }}\",\n  \"type\": \"interactive\",\n  \"interactive\": {\n    \"type\": \"button\",\n    \"body\": {\n      \"text\": \"Habitação - imóvel usado.\\n\\nPara fazer a simulação, acesse:\\n\\n{{DEFAULT_FORM_URL}}\\n\\nDepois de receber sua simulação, clique em \\\"Já recebi\\\".\"\n    },\n    \"action\": {\n      \"buttons\": [\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"HAB_RECEBI\",\n            \"title\": \"Já recebi\"\n          }\n        },\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"ATENDENTE\",\n            \"title\": \"Atendente\"\n          }\n        },\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"MENU\",\n            \"title\": \"Menu inicial\"\n          }\n        }\n      ]\n    }\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -1424,
+        -912
+      ],
+      "id": "5d9ce003-e32c-4a80-aa9e-6044f38e6962",
+      "name": "MSG Habitacao Usado"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v26.0/{{WHATSAPP_PHONE_NUMBER_ID}}/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": " Authorization",
+              "value": "Bearer WHATSAPP_ACCESS_TOKEN_PLACEHOLDER"
+            },
+            {
+              "name": "Content-Type",
+              "value": " application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"messaging_product\": \"whatsapp\",\n  \"recipient_type\": \"individual\",\n  \"to\": \"{{ $('Webhook').item.json.body.entry[0].changes[0].value.messages[0].from }}\",\n  \"type\": \"interactive\",\n  \"interactive\": {\n    \"type\": \"button\",\n    \"body\": {\n      \"text\": \"Habitação - imóvel novo.\\n\\nPara fazer a simulação, acesse:\\n\\n{{DEFAULT_FORM_URL}}\\n\\nDepois de receber sua simulação, clique em \\\"Já recebi\\\".\"\n    },\n    \"action\": {\n      \"buttons\": [\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"HAB_RECEBI\",\n            \"title\": \"Já recebi\"\n          }\n        },\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"ATENDENTE\",\n            \"title\": \"Atendente\"\n          }\n        },\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"MENU\",\n            \"title\": \"Menu inicial\"\n          }\n        }\n      ]\n    }\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -1424,
+        -752
+      ],
+      "id": "cebe5805-cf07-41c2-9c48-e56f7a577ff7",
+      "name": "MSG Habitacao Novo"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v26.0/{{WHATSAPP_PHONE_NUMBER_ID}}/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": " Authorization",
+              "value": "Bearer WHATSAPP_ACCESS_TOKEN_PLACEHOLDER"
+            },
+            {
+              "name": "Content-Type",
+              "value": " application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"messaging_product\": \"whatsapp\",\n  \"recipient_type\": \"individual\",\n  \"to\": \"{{ $('Webhook').item.json.body.entry[0].changes[0].value.messages[0].from }}\",\n  \"type\": \"text\",\n  \"text\": {\n    \"preview_url\": false,\n    \"body\": \"Perfeito. Sua simulação foi recebida.\\n\\nEm breve a equipe {{CLIENT_NAME}} dará continuidade ao atendimento.\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -1424,
+        -592
+      ],
+      "id": "c96b4402-28ee-4131-ab5b-ea10324cda43",
+      "name": "MSG Recebi Simulacao"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v26.0/{{WHATSAPP_PHONE_NUMBER_ID}}/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": " Authorization",
+              "value": "Bearer WHATSAPP_ACCESS_TOKEN_PLACEHOLDER"
+            },
+            {
+              "name": "Content-Type",
+              "value": " application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"messaging_product\": \"whatsapp\",\n  \"recipient_type\": \"individual\",\n  \"to\": \"{{ $('Webhook').item.json.body.entry[0].changes[0].value.messages[0].from }}\",\n  \"type\": \"text\",\n  \"text\": {\n    \"preview_url\": false,\n    \"body\": \"Conta corrente ou poupança.\\n\\nEsse atendimento é presencial.\\n\\nPara abertura, será necessário levar:\\n\\n- RG\\n- CPF\\n- Comprovante de endereço\\n\\nEndereço: {{COMPANY_ADDRESS}}.\\nHorário: {{BUSINESS_HOURS_LABEL}}.\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -1424,
+        -432
+      ],
+      "id": "af4309f0-c526-4984-ab1e-d8e959537782",
+      "name": "MSG Conta"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v26.0/{{WHATSAPP_PHONE_NUMBER_ID}}/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": " Authorization",
+              "value": "Bearer WHATSAPP_ACCESS_TOKEN_PLACEHOLDER"
+            },
+            {
+              "name": "Content-Type",
+              "value": " application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"messaging_product\": \"whatsapp\",\n  \"recipient_type\": \"individual\",\n  \"to\": \"{{ $('Webhook').item.json.body.entry[0].changes[0].value.messages[0].from }}\",\n  \"type\": \"text\",\n  \"text\": {\n    \"preview_url\": true,\n    \"body\": \"Consórcio - automóvel.\\n\\nPara continuar, preencha o formulário abaixo:\\n\\n{{DEFAULT_FORM_URL}}\\n\\nApós preencher, aguarde o atendimento da equipe {{CLIENT_NAME}}.\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -1424,
+        -112
+      ],
+      "id": "2268c8e0-898a-4497-a1af-036847cd733b",
+      "name": "MSG Consorcio Auto"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v26.0/{{WHATSAPP_PHONE_NUMBER_ID}}/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": " Authorization",
+              "value": "Bearer WHATSAPP_ACCESS_TOKEN_PLACEHOLDER"
+            },
+            {
+              "name": "Content-Type",
+              "value": " application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"messaging_product\": \"whatsapp\",\n  \"recipient_type\": \"individual\",\n  \"to\": \"{{ $('Webhook').item.json.body.entry[0].changes[0].value.messages[0].from }}\",\n  \"type\": \"text\",\n  \"text\": {\n    \"preview_url\": true,\n    \"body\": \"Consórcio - imobiliário.\\n\\nPara continuar, preencha o formulário abaixo:\\n\\n{{DEFAULT_FORM_URL}}\\n\\nApós preencher, aguarde o atendimento da equipe {{CLIENT_NAME}}.\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -1424,
+        48
+      ],
+      "id": "5703867f-b0c8-4371-ba82-dce1e284af3e",
+      "name": "MSG Consorcio Imob"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v26.0/{{WHATSAPP_PHONE_NUMBER_ID}}/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": " Authorization",
+              "value": "Bearer WHATSAPP_ACCESS_TOKEN_PLACEHOLDER"
+            },
+            {
+              "name": "Content-Type",
+              "value": " application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"messaging_product\": \"whatsapp\",\n  \"recipient_type\": \"individual\",\n  \"to\": \"{{ $('Webhook').item.json.body.entry[0].changes[0].value.messages[0].from }}\",\n  \"type\": \"interactive\",\n  \"interactive\": {\n    \"type\": \"button\",\n    \"body\": {\n      \"text\": \"Você escolheu Consignado.\\n\\nSelecione uma opção:\"\n    },\n    \"action\": {\n      \"buttons\": [\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"CONS_SERVIDOR\",\n            \"title\": \"Servidor público\"\n          }\n        },\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"ATENDENTE\",\n            \"title\": \"Atendente\"\n          }\n        },\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"MENU\",\n            \"title\": \"Menu inicial\"\n          }\n        }\n      ]\n    }\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -1424,
+        208
+      ],
+      "id": "c6780622-e828-469d-8dad-567f1259e3d6",
+      "name": "MSG Consignado"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v26.0/{{WHATSAPP_PHONE_NUMBER_ID}}/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": " Authorization",
+              "value": "Bearer WHATSAPP_ACCESS_TOKEN_PLACEHOLDER"
+            },
+            {
+              "name": "Content-Type",
+              "value": " application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"messaging_product\": \"whatsapp\",\n  \"recipient_type\": \"individual\",\n  \"to\": \"{{ $('Webhook').item.json.body.entry[0].changes[0].value.messages[0].from }}\",\n  \"type\": \"text\",\n  \"text\": {\n    \"preview_url\": true,\n    \"body\": \"Consignado - servidor público.\\n\\nPara continuar, preencha o formulário abaixo:\\n\\n{{DEFAULT_FORM_URL}}\\n\\nApós preencher, aguarde o atendimento da equipe {{CLIENT_NAME}}.\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -1424,
+        368
+      ],
+      "id": "7ac935d7-b569-4acd-9cbf-e4116ea2dc2b",
+      "name": "MSG Consignado Servidor"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v26.0/{{WHATSAPP_PHONE_NUMBER_ID}}/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": " Authorization",
+              "value": "Bearer WHATSAPP_ACCESS_TOKEN_PLACEHOLDER"
+            },
+            {
+              "name": "Content-Type",
+              "value": " application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"messaging_product\": \"whatsapp\",\n  \"recipient_type\": \"individual\",\n  \"to\": \"{{ $('Webhook').item.json.body.entry[0].changes[0].value.messages[0].from }}\",\n  \"type\": \"text\",\n  \"text\": {\n    \"preview_url\": false,\n    \"body\": \"Cartão de crédito.\\n\\nEsse atendimento é realizado somente de forma presencial.\\n\\nEndereço: {{COMPANY_ADDRESS}}.\\nHorário: {{BUSINESS_HOURS_LABEL}}.\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -1424,
+        528
+      ],
+      "id": "49c15fd0-a47b-4cde-ba37-c33c915403ab",
+      "name": "MSG Cartao"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v26.0/{{WHATSAPP_PHONE_NUMBER_ID}}/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": " Authorization",
+              "value": "Bearer WHATSAPP_ACCESS_TOKEN_PLACEHOLDER"
+            },
+            {
+              "name": "Content-Type",
+              "value": " application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"messaging_product\": \"whatsapp\",\n  \"recipient_type\": \"individual\",\n  \"to\": \"{{ $('Webhook').item.json.body.entry[0].changes[0].value.messages[0].from }}\",\n  \"type\": \"text\",\n  \"text\": {\n    \"preview_url\": true,\n    \"body\": \"Construção - aquisição de terreno e construção.\\n\\nPara continuar, preencha o formulário abaixo:\\n\\n{{DEFAULT_FORM_URL}}\\n\\nApós preencher, aguarde o atendimento da equipe {{CLIENT_NAME}}.\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -1424,
+        864
+      ],
+      "id": "cef682a6-892c-452f-8eac-56ca373ef6d7",
+      "name": "MSG Construcao Aquisicao"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v26.0/{{WHATSAPP_PHONE_NUMBER_ID}}/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": " Authorization",
+              "value": "Bearer WHATSAPP_ACCESS_TOKEN_PLACEHOLDER"
+            },
+            {
+              "name": "Content-Type",
+              "value": " application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"messaging_product\": \"whatsapp\",\n  \"recipient_type\": \"individual\",\n  \"to\": \"{{ $('Webhook').item.json.body.entry[0].changes[0].value.messages[0].from }}\",\n  \"type\": \"text\",\n  \"text\": {\n    \"preview_url\": true,\n    \"body\": \"Construção - terreno próprio.\\n\\nPara continuar, preencha o formulário abaixo:\\n\\n{{DEFAULT_FORM_URL}}\\n\\nApós preencher, aguarde o atendimento da equipe {{CLIENT_NAME}}.\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -1424,
+        1024
+      ],
+      "id": "c0eef99a-4d95-44f8-bc08-cca82f71c7d7",
+      "name": "MSG Construcao Proprio"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v26.0/{{WHATSAPP_PHONE_NUMBER_ID}}/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": " Authorization",
+              "value": "Bearer WHATSAPP_ACCESS_TOKEN_PLACEHOLDER"
+            },
+            {
+              "name": "Content-Type",
+              "value": " application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"messaging_product\": \"whatsapp\",\n  \"recipient_type\": \"individual\",\n  \"to\": \"{{ $('Webhook').item.json.body.entry[0].changes[0].value.messages[0].from }}\",\n  \"type\": \"text\",\n  \"text\": {\n    \"preview_url\": false,\n    \"body\": \"Certo. Vou encaminhar seu atendimento para uma atendente da {{CLIENT_NAME}}.\\n\\nNosso horário de atendimento é {{BUSINESS_HOURS_LABEL}}.\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -1424,
+        1184
+      ],
+      "id": "8d4cb6f9-0149-4027-b98d-9f840ad24e90",
+      "name": "MSG Atendente"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "EVENT_RECEIVED",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        -16,
+        272
+      ],
+      "id": "9db41656-7bc2-44a2-bd9b-fd521c0c1569",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v26.0/{{WHATSAPP_PHONE_NUMBER_ID}}/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": " Authorization",
+              "value": "Bearer WHATSAPP_ACCESS_TOKEN_PLACEHOLDER"
+            },
+            {
+              "name": "Content-Type",
+              "value": " application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"messaging_product\": \"whatsapp\",\n  \"recipient_type\": \"individual\",\n  \"to\": \"{{ $('Webhook').item.json.body.entry[0].changes[0].value.messages[0].from }}\",\n  \"type\": \"interactive\",\n  \"interactive\": {\n    \"type\": \"button\",\n    \"body\": {\n      \"text\": \"Você escolheu Construção.\\n\\nSelecione uma opção:\"\n    },\n    \"action\": {\n      \"buttons\": [\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"CONST_AQUISICAO\",\n            \"title\": \"Aquisição\"\n          }\n        },\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"CONST_PROPRIO\",\n            \"title\": \"Terreno próprio\"\n          }\n        },\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"MENU\",\n            \"title\": \"Menu inicial\"\n          }\n        }\n      ]\n    }\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -1424,
+        688
+      ],
+      "id": "0a566e8d-e248-46a3-9145-6d7ff6e26546",
+      "name": "MSG Construcao"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v26.0/{{WHATSAPP_PHONE_NUMBER_ID}}/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": " Authorization",
+              "value": "Bearer WHATSAPP_ACCESS_TOKEN_PLACEHOLDER"
+            },
+            {
+              "name": "Content-Type",
+              "value": " application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"messaging_product\": \"whatsapp\",\n  \"recipient_type\": \"individual\",\n  \"to\": \"{{ $('Webhook').item.json.body.entry[0].changes[0].value.messages[0].from }}\",\n  \"type\": \"interactive\",\n  \"interactive\": {\n    \"type\": \"button\",\n    \"body\": {\n      \"text\": \"Você escolheu Consórcio.\\n\\nSelecione uma opção:\"\n    },\n    \"action\": {\n      \"buttons\": [\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"CONS_AUTO\",\n            \"title\": \"Automóvel\"\n          }\n        },\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"CONS_IMOB\",\n            \"title\": \"Imobiliário\"\n          }\n        },\n        {\n          \"type\": \"reply\",\n          \"reply\": {\n            \"id\": \"MENU\",\n            \"title\": \"Menu inicial\"\n          }\n        }\n      ]\n    }\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -1424,
+        -272
+      ],
+      "id": "606aadeb-da56-4ac2-8ece-dbd2e5d2944a",
+      "name": "MSG Consorcio"
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "scherandre.app.n8n.cloud",
+            "user-agent": "facebookexternalua",
+            "content-length": "549",
+            "accept": "*/*",
+            "accept-encoding": "gzip, br",
+            "cdn-loop": "cloudflare; loops=1; subreqs=1",
+            "cf-connecting-ip": "2a03:2880:21ff:3::",
+            "cf-ew-via": "15",
+            "cf-ipcountry": "US",
+            "cf-ray": "a2a323e78a346745-ATL",
+            "cf-visitor": "{\"scheme\":\"https\"}",
+            "cf-worker": "n8n.cloud",
+            "content-type": "application/json",
+            "x-forwarded-for": "2a03:2880:21ff:3::, 172.69.70.31",
+            "x-forwarded-host": "scherandre.app.n8n.cloud",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "traefik-prod-users-gwc-71-84c76fc7d-ddfgm",
+            "x-hub-signature": "sha1=7950ea857e67915fcfd8cd730936a2d7f5c56588",
+            "x-hub-signature-256": "sha256=a145b031264239ddc1e11e9bad55038fc8d4fdb2f6224c77a53b8843a9136a04",
+            "x-is-trusted": "yes",
+            "x-real-ip": "2a03:2880:21ff:3::"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "object": "whatsapp_business_account",
+            "entry": [
+              {
+                "id": "1805482913946732",
+                "changes": [
+                  {
+                    "value": {
+                      "messaging_product": "whatsapp",
+                      "metadata": {
+                        "display_phone_number": "15556665710",
+                        "phone_number_id": "1325757177278237"
+                      },
+                      "contacts": [
+                        {
+                          "profile": {
+                            "name": "Andre Scher"
+                          },
+                          "wa_id": "557391503740",
+                          "user_id": "BR.2143547583234228"
+                        }
+                      ],
+                      "messages": [
+                        {
+                          "from": "557391503740",
+                          "from_user_id": "BR.2143547583234228",
+                          "id": "wamid.HBgMNTU3MzkxNTAzNzQwFQIAEhgWM0VCMDYwOTc1RjY4NzUwMkY3M0QwRgA=",
+                          "timestamp": "1786576087",
+                          "text": {
+                            "body": "teste"
+                          },
+                          "type": "text"
+                        }
+                      ]
+                    },
+                    "field": "messages"
+                  }
+                ]
+              }
+            ]
+          },
+          "webhookUrl": "https://scherandre.app.n8n.cloud/webhook/meta-whatsapp",
+          "executionMode": "production"
+        },
+        "pairedItem": {
+          "item": 0,
+          "input": 1
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "IF Verificar Token",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IF Tem Mensagem",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Verificar Token": {
+      "main": [
+        [],
+        []
+      ]
+    },
+    "IF Tem Mensagem": {
+      "main": [
+        [
+          {
+            "node": "SWITCH Escolha",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SWITCH Escolha": {
+      "main": [
+        [
+          {
+            "node": "MSG Habitacao",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "MSG Habitacao Usado",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "MSG Habitacao Novo",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "MSG Recebi Simulacao",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "MSG Conta",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "MSG Consorcio",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "MSG Consorcio Auto",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "MSG Consorcio Imob",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "MSG Consignado",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "MSG Consignado Servidor",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "MSG Cartao",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "MSG Construcao",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "MSG Construcao Aquisicao",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "MSG Construcao Proprio",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "MSG Atendente",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "MSG Atendente",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "MSG Menu Principal",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "MSG Menu Principal",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "MSG Menu Principal",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "MSG Menu Principal",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        []
+      ]
+    },
+    "MSG Habitacao": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MSG Habitacao Usado": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MSG Habitacao Novo": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MSG Recebi Simulacao": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MSG Conta": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MSG Consorcio Auto": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MSG Consorcio Imob": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MSG Consignado": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MSG Consignado Servidor": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MSG Cartao": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MSG Construcao Aquisicao": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MSG Construcao Proprio": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MSG Atendente": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MSG Menu Principal": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MSG Construcao": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MSG Consorcio": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "31ce8167-4afc-41bd-967b-9cb32e888623",
+  "meta": {
+    "instanceId": "b16c89a3579214da047a5b762d4d6d1cf1b5044447cd2ed5f2270bab72caa16c"
+  },
+  "nodeGroups": [],
+  "id": "850qz3DmNDz0BZQq",
+  "tags": []
+}

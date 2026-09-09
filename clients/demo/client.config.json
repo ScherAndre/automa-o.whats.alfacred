@@ -1,0 +1,43 @@
+{
+  "client_id": "demo",
+  "client_name": "Empresa Demonstracao",
+  "segment": "financial",
+  "environment": "demo",
+  "timezone": "America/Bahia",
+  "business_hours_label": "8h as 18h",
+  "whatsapp": {
+    "provider": "meta_cloud_api",
+    "display_number": "+55 (00) 00000-0000",
+    "phone_number_id_env": "DEMO_WHATSAPP_PHONE_NUMBER_ID",
+    "business_account_id_env": "DEMO_WHATSAPP_BUSINESS_ACCOUNT_ID",
+    "access_token_env": "DEMO_WHATSAPP_ACCESS_TOKEN",
+    "verify_token_env": "DEMO_WHATSAPP_VERIFY_TOKEN",
+    "webhook_path": "meta-whatsapp-demo",
+    "send_real_messages": false
+  },
+  "n8n": {
+    "workflow_name": "WhatsApp Demo - Webhook Meta",
+    "public_webhook_url_env": "DEMO_PUBLIC_WEBHOOK_URL"
+  },
+  "human_handoff": {
+    "enabled": true,
+    "attendant_number": null,
+    "customer_direct_link": null,
+    "notify_attendant": false,
+    "notify_with_whatsapp": false,
+    "simulation_only": true
+  },
+  "forms": {
+    "default_form_id": "demo_default"
+  },
+  "routing": {
+    "main_menu_command_ids": ["MENU", "INICIO", "1"],
+    "human_handoff_command_ids": ["ATENDENTE", "9"],
+    "fallback_action": "main_menu"
+  },
+  "security": {
+    "store_tokens_in_repository": false,
+    "store_tokens_in_n8n_credentials": true,
+    "log_sensitive_payloads": false
+  }
+}
