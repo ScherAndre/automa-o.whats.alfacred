@@ -84,6 +84,42 @@ O backup nao deve ser salvo no Git, porque pode conter dados pessoais.
 7. Testar rollback em banco descartavel.
 8. So depois planejar aplicacao em producao.
 
+## Teste realizado
+
+Teste executado em ambiente local descartavel com Docker em 2026-09-09.
+
+Ambiente:
+
+- Imagem: `postgres:16`
+- Banco: `alfacred_test`
+- Container: `alfacred-postgres-test`
+- Porta local: `5433`
+
+Resultado:
+
+- `database/schema.sql` aplicado com sucesso.
+- `database/migrations/001_add_multi_client_foundation.up.sql` aplicado com sucesso.
+- Tabelas confirmadas apos a migracao:
+  - `clients`
+  - `contacts`
+  - `conversation_events`
+  - `conversations`
+  - `error_logs`
+  - `leads`
+  - `message_logs`
+  - `services`
+- Cliente inicial confirmado:
+
+```text
+id       | name     | segment   | environment
+alfacred | Alfacred | financial | production
+```
+
+- `database/migrations/001_add_multi_client_foundation.down.sql` aplicado com sucesso.
+- Container de teste removido ao final.
+
+Conclusao: a migracao `up` e o rollback `down` foram validados em banco descartavel. Ainda nao foram aplicados em banco real ou ambiente de producao.
+
 ## Cuidados de seguranca
 
 Nao registrar em `message_logs.metadata`, `leads.data`, `conversation_events.metadata` ou `error_logs.safe_context`:

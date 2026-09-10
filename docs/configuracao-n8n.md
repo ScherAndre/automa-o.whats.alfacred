@@ -2,6 +2,41 @@
 
 O n8n será responsável por receber o webhook da Meta, aplicar a lógica determinística da conversa, consultar o PostgreSQL e enviar mensagens pela WhatsApp Business Cloud API.
 
+## Estrutura multi-cliente
+
+O projeto agora possui uma separacao inicial entre:
+
+- configuracao por cliente em `clients/`;
+- exports sanitizados em `n8n/exports/`;
+- templates reutilizaveis em `n8n/templates/`;
+- migracoes de banco em `database/migrations/`.
+
+Cliente real atual:
+
+```text
+clients/alfacred/
+```
+
+Cliente ficticio para demonstracao:
+
+```text
+clients/demo/
+```
+
+Template n8n atual:
+
+```text
+n8n/templates/whatsapp-base-webhook-meta.template.json
+```
+
+Export sanitizado da Alfacred:
+
+```text
+n8n/exports/whatsapp-alfacred-webhook-meta.sanitized.json
+```
+
+Nao edite o workflow de producao da Alfacred para testar um cliente novo. Primeiro importe uma copia inativa do template, configure os placeholders e teste em DEV/DEMO.
+
 ## Credenciais
 
 Configure no gerenciador de credenciais do n8n:
@@ -25,6 +60,22 @@ TIMEZONE=America/Bahia
 
 Demais segredos devem ser cadastrados como credenciais ou variáveis protegidas.
 
+Para novos clientes, use nomes separados quando possivel:
+
+```env
+CLIENT_ID=
+CLIENT_NAME=
+COMPANY_SEGMENT=
+BUSINESS_HOURS_LABEL=
+HUMAN_ATTENDANT_NUMBER=
+DEFAULT_FORM_URL=
+WHATSAPP_PHONE_NUMBER_ID=
+WHATSAPP_BUSINESS_ACCOUNT_ID=
+PUBLIC_WEBHOOK_URL=
+```
+
+Tokens, App Secret e senhas devem ficar em credenciais do n8n ou variaveis protegidas, nunca no JSON versionado.
+
 ## Workflow recomendado
 
 Monte o workflow seguindo `docs/fluxo-conversa.md`.
@@ -46,6 +97,32 @@ Nós conceituais:
 13. Atualização do banco.
 14. Registro de logs.
 15. Tratamento de erros.
+
+## Uso do template para novo cliente
+
+Fluxo seguro:
+
+1. Copiar `n8n/templates/whatsapp-base-webhook-meta.template.json`.
+2. Substituir placeholders do cliente.
+3. Importar a copia no n8n.
+4. Manter o workflow importado inativo.
+5. Configurar credenciais protegidas.
+6. Testar webhook, menu, formularios e atendimento humano.
+7. So ativar depois de validar tudo com numero de teste ou ambiente DEMO.
+
+Placeholders principais:
+
+- `{{CLIENT_NAME}}`
+- `{{WHATSAPP_PHONE_NUMBER_ID}}`
+- `{{WHATSAPP_ACCESS_TOKEN}}`
+- `{{WHATSAPP_VERIFY_TOKEN}}`
+- `{{BUSINESS_HOURS_LABEL}}`
+- `{{COMPANY_ADDRESS}}`
+- `{{DEFAULT_FORM_URL}}`
+- `{{HUMAN_ATTENDANT_NUMBER}}`
+- `{{HUMAN_ATTENDANT_WA_LINK}}`
+
+No workflow real, prefira trocar os headers `Authorization: Bearer ...` por credencial do n8n. O export sanitizado usa placeholders apenas para documentar a estrutura.
 
 ## Assinatura dos eventos
 

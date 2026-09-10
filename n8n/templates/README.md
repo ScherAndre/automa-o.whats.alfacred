@@ -25,3 +25,7 @@ Placeholders principais:
 Arquivo atual:
 
 - `whatsapp-base-webhook-meta.template.json`: template-base derivado do fluxo atual da Alfacred, sem credenciais reais.
+
+Guia completo:
+
+- `../../docs/n8n-multi-client-template.md`
