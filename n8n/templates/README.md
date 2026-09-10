@@ -19,7 +19,13 @@ Placeholders principais:
 - `{{BUSINESS_HOURS_LABEL}}`
 - `{{COMPANY_ADDRESS}}`
 - `{{DEFAULT_FORM_URL}}`
+- `{{HUMAN_ATTENDANT_NUMBER}}`
+- `{{HUMAN_ATTENDANT_WA_LINK}}`
 
 Arquivo atual:
 
-- `whatsapp-base-webhook-meta.template.json`: template-base derivado do fluxo da Alfacred, sem credenciais reais.
+- `whatsapp-base-webhook-meta.template.json`: template-base derivado do fluxo atual da Alfacred, sem credenciais reais.
+
+Guia completo:
+
+- `../../docs/n8n-multi-client-template.md`

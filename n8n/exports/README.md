@@ -11,4 +11,4 @@ Regras:
 
 Arquivo atual:
 
-- `whatsapp-alfacred-webhook-meta.sanitized.json`: export sanitizado do workflow atual da Alfacred.
+- `whatsapp-alfacred-webhook-meta.sanitized.json`: export sanitizado do workflow atual da Alfacred, incluindo aviso ao atendente humano.
